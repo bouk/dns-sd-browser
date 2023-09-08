@@ -37,6 +37,17 @@ pub struct Service {
     pub metadata: HashMap<String, Option<String>>,
 }
 
+impl Service {
+    /// Friendly instance name e.g. MacBouk Pro
+    pub fn user_friendly_name(&self) -> &str {
+        &self
+            .instance_name
+            .split_once('.')
+            .map(|(name, _)| name)
+            .unwrap_or(&self.instance_name)
+    }
+}
+
 impl ToSocketAddrs for Service {
     type Iter = vec::IntoIter<SocketAddr>;
 
